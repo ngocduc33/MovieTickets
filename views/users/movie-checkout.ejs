@@ -1,0 +1,188 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    <% } else { %>
+                        <a href="/user/sign-in">Đăng nhập</a>
+                    <% } %>      
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img seat-plan-banner" data-background="/user/images/banner/banner04.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title">THANH TOÁN</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="movie-facility padding-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="checkout-widget checkout-contact">
+                    <h5 class="title">Mã Khuyến Mãi</h5>
+                    <form class="checkout-contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Vui lòng nhập mã khuyến mãi">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Xác Nhận" class="custom-button">
+                        </div>
+                    </form>
+                </div>
+                <div class="checkout-widget checkout-card mb-0">
+                    <h5 class="title">Hình Thức Thanh Toán</h5>
+                    <ul class="payment-option">
+                        <li class="active">
+                            <a href="#0">
+                                <img src="/user/images/payment/card.png" alt="payment">
+                                <span>Credit Card</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0">
+                                <img src="/user/images/payment/card.png" alt="payment">
+                                <span>Debit Card</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0">
+                                <img src="/user/images/payment/paypal.png" alt="payment">
+                                <span>paypal</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <h6 class="subtitle">Nhập nội dung thẻ </h6>
+                    <form class="payment-card-form">
+                        <div class="form-group w-100">
+                            <label for="card1">SỐ THẺ</label>
+                            <input type="text" id="card1">
+                            <div class="right-icon">
+                                <i class="flaticon-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="card2"> TÊN CHỦ THẺ</label>
+                            <input type="text" id="card2">
+                        </div>
+                        <div class="form-group">
+                            <label for="card3">NGÀY/THÁNG PHÁT HÀNH</label>
+                            <input type="text" id="card3" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="card4">MÃ SỐ XÁC MINH</label>
+                            <input type="text" id="card4" placeholder="CVV">
+                        </div>
+                    </form>
+                    <p class="notice">
+                        Khi nhấp vào "Thanh Toán" thì bạn đã chấp nhận <a href="#0">các điều khoản và điệu kiện</a> của chúng tôi
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <form method="POST" id="frmCheckout">
+                    <div class="booking-summery bg-one">
+                        <h4 class="title">Thông Tin</h4>
+                        <ul>
+                            <li>
+                                <h6 class="subtitle"><%= currentShowtime.movieName %></h6>
+                                <span class="info"><%= currentShowtime.theater.kind %></span>
+                            </li>
+                            <li>
+                                <h6 class="subtitle"><span><%= currentShowtime.theater.theater_cluster.name %></span></h6>
+                                <div class="info"><span><%= moment(currentShowtime.showtime.date).format('DD/MM/YYYY') %>
+                                , <%= currentShowtime.showtime.start_time.substr(0, 5) %> ~ <%= currentShowtime.showtime.end_time.substr(0, 5) %> </span></div>
+                            </li>
+                            <li>
+                                <h6 class="subtitle"><span><%= currentShowtime.theater.name %></span></h6>
+                                <div class="info"><span><%= currentSeatList.join(', ') %></span></div>
+                            </li>
+                            <li>
+                                <h6 class="subtitle mb-0"><span>Giá vé</span><span><%= String(currentShowtime.showtime.price).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VNĐ</span></h6>
+                            </li>
+                        </ul>
+                        <ul class="side-shape">
+                            <li>
+                                <h6 class="subtitle"><span>Số ghế</span><span><%= currentShowtime.countSeat %></span></h6>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="proceed-area  text-center">
+                        <h6 class="subtitle"><span>Tổng tiền</span><span><%= String(currentShowtime.totalPrice).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> VNĐ</span></h6>
+                        <a id="submitCheckout" class="custom-button" style="cursor: pointer;">Thanh toán</a>
+                    </div>
+                </form>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==========Movie-Section========== -->

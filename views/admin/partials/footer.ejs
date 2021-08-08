@@ -1,0 +1,564 @@
+<!-- JS Implementing Plugins -->
+<script src="/admin/assets/js/vendor.min.js"></script>
+<script src="/admin/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/admin/assets/vendor/chart.js.extensions/chartjs-extensions.js"></script>
+<script src="/admin/assets/vendor/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
+
+<!-- JS Front -->
+<script src="/admin/assets/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+  function submitFrm() {
+      $('#frm').submit();
+    }
+  $(document).on('ready', function () {
+
+    //filter theater then select theater cluster
+    $('#cluster_seleted').on('change', function() {
+      let cluster = $(this).val();
+      console.log(cluster);
+      if(cluster !== "")
+      {
+        $.ajax({
+          type: "POST",
+          url: "/admin/shows/add/filter-theater",
+          data: {cluster},
+          dataType: "json",
+          success: function(res){
+              let html = "";
+              console.log(res);
+              $.each(res, function(index, val) {
+                  console.log(val.id);
+                  console.log(val.name);
+                  html += '<option value="'+ val.id +'">'+ val.name+'</option>';
+              });
+              if(html == "") {
+                  html = '<option value="">Bất kỳ</option>';
+              }
+              $('#theater_selected').html(html);
+          },        
+        });
+      }
+    });
+
+    // AJAX FOR STATISTICS THEATER CLUSTER
+    $('#btn_statis_cluster').on('click', function() {
+      let date_start = $('#date_start_cluster').val();
+      let date_end = $('#date_end_cluster').val();
+      let select_cluster = $("select[name=select_cluster]").children("option:selected").val();
+      $.ajax({
+          type: "POST",
+          url: "/admin/statistic/theater-cluster",
+          data: {date_start, date_end, select_cluster},
+          dataType: "json",
+          success: function(res){
+            if(res.listLabels)
+            {    
+              $("#js-chart-cluster").removeAttr('data-hs-chartjs-options'); 
+              let chart = $("#js-chart-cluster").get(0).getContext("2d");   
+              let myBarChart = new Chart(chart, {
+                type: 'line',
+                data: {
+                    labels: res.listLabels,
+                    datasets: [{
+                      data: res.listTicket,
+                      label: 'Số vé bán được',
+                      fill: false,
+                      borderColor: '#e7eaf3',
+                      tension: 0.1
+                    },
+                    {
+                      data: res.listPrice,
+                      label: 'Doanh thu',
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                    }]
+                },
+                /* options: {
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        }
+                    }
+                  }
+                } */           
+              });
+              
+              $("#totalTicketCluster").text(res.ticketTotal);
+              $("#totalPriceCluster").text(res.priceTotal + ' VNĐ');
+              
+            }
+            else
+            {
+              $("#js-chart-cluster").removeAttr('data-hs-chartjs-options');
+              let chart_ctx = $("#js-chart-cluster").get(0).getContext("2d");  
+              /* let chart = new Chart(chart_ctx, {    
+                  type: "line",
+                  data: {
+                    labels: ["","", ""],
+                    datasets: [{
+                      data: [0,0,0],
+                      label: 'Số vé bán được',
+                      fill: false,
+                      borderColor: '#e7eaf3',
+                      tension: 0.1
+                    },
+                    {
+                      data: [0,0,0],
+                      label: 'Doanh thu',
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                    }]
+                },  
+              }); */
+              $("#totalTicketCluster").text(res.ticketTotal);
+              $("#totalPriceCluster").text(res.priceTotal + ' VNĐ');
+            }
+          },        
+      });
+    });
+
+    // AJAX FOR STATISTICS MOVIES
+    $('#btn_statis_movies').on('click', function() {
+      let date_start = $('#date_start_movies').val();
+      let date_end = $('#date_end_movies').val();
+      let select_movies = $("select[name=select_movies]").children("option:selected").val();
+      
+      $.ajax({
+          type: "POST",
+          url: "/admin/statistic/movies",
+          data: {date_start, date_end, select_movies},
+          dataType: "json",
+          success: function(res){
+            if(res.listLabels)
+            {
+              $("#js-chart-movies").removeAttr('data-hs-chartjs-options');
+              let chart = $("#js-chart-movies").get(0).getContext("2d");          
+              let myBarChart = new Chart(chart, {
+                type: 'line',
+                data: {
+                    labels: res.listLabels,
+                    datasets: [{
+                      data: res.listTicket,
+                      label: 'Số vé bán được',
+                      fill: false,
+                      borderColor: '#e7eaf3',
+                      tension: 0.1
+                    },
+                    {
+                      data: res.listPrice,
+                      label: 'Doanh thu',
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                    }]
+                },  
+               /* options: {
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return 'Doanh thu: ' + tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        }
+                    }
+                  }
+                } */  
+              });
+        
+              $("#totalTicketMovies").text(res.ticketTotal);
+              $("#totalPriceMovies").text(res.priceTotal + ' VNĐ');
+            }
+            else
+            {
+              $("#js-chart-movies").removeAttr('data-hs-chartjs-options');
+              /* let chart_ctx = $("#js-chart-movies").get(0).getContext("2d");  
+              let chart = new Chart(chart_ctx, {    
+                  type: "line",
+                  data: {
+                    labels: ["","",""],
+                    datasets: [{
+                      data: [0,0,0],
+                      label: 'Số vé bán được',
+                      fill: false,
+                      borderColor: '#e7eaf3',
+                      tension: 0.1
+                    },
+                    {
+                      data: [0,0,0],
+                      label: 'Doanh thu',
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                    }]
+                },  
+              }); */
+              $("#totalTicketMovies").text(res.ticketTotal);
+              $("#totalPriceMovies").text(res.priceTotal + ' VNĐ');
+            }
+          },        
+      });
+    });
+
+    // ONLY DEV
+    // =======================================================
+    
+      if (window.localStorage.getItem('hs-builder-popover') === null) {
+        $('#builderPopover').popover('show')
+          .on('shown.bs.popover', function () {
+            $('.popover').last().addClass('popover-dark')
+          });
+
+        $(document).on('click', '#closeBuilderPopover' , function() {
+          window.localStorage.setItem('hs-builder-popover', true);
+          $('#builderPopover').popover('dispose');
+        });
+      } else {
+        $('#builderPopover').on('show.bs.popover', function () {
+          return false
+        });
+      }
+    
+    // END ONLY DEV
+    // =======================================================
+
+
+    // BUILDER TOGGLE INVOKER
+    // =======================================================
+    $('.js-navbar-vertical-aside-toggle-invoker').click(function () {
+      $('.js-navbar-vertical-aside-toggle-invoker i').tooltip('hide');
+    });
+    
+
+    
+      // INITIALIZATION OF MEGA MENU
+      // =======================================================
+      var megaMenu = new HSMegaMenu($('.js-mega-menu'), {
+        desktop: {
+          position: 'left'
+        }
+      }).init();
+    
+
+    
+    // INITIALIZATION OF NAVBAR VERTICAL NAVIGATION
+    // =======================================================
+    var sidebar = $('.js-navbar-vertical-aside').hsSideNav();
+
+    
+    // INITIALIZATION OF TOOLTIP IN NAVBAR VERTICAL MENU
+    // =======================================================
+    $('.js-nav-tooltip-link').tooltip({ boundary: 'window' })
+
+    $(".js-nav-tooltip-link").on("show.bs.tooltip", function(e) {
+      if (!$("body").hasClass("navbar-vertical-aside-mini-mode")) {
+        return false;
+      }
+    });
+
+    
+    // INITIALIZATION OF UNFOLD
+    // =======================================================
+    $('.js-hs-unfold-invoker').each(function () {
+      var unfold = new HSUnfold($(this)).init();
+    });
+
+    
+    // INITIALIZATION OF FORM SEARCH
+    // =======================================================
+    $('.js-form-search').each(function () {
+      new HSFormSearch($(this)).init()
+    });
+
+    
+    // INITIALIZATION OF SELECT2
+    // =======================================================
+    $('.js-select2-custom').each(function () {
+      var select2 = $.HSCore.components.HSSelect2.init($(this));
+    });
+
+    
+    // INITIALIZATION OF CHARTJS
+    // =======================================================
+    Chart.plugins.unregister(ChartDataLabels);
+
+    $('.js-chart').each(function () {
+      $.HSCore.components.HSChartJS.init($(this));
+    });
+
+    var updatingChart = $.HSCore.components.HSChartJS.init($('#updatingData'));
+
+    $('.js-daterangepicker').daterangepicker();
+
+    $('.js-daterangepicker-times').daterangepicker({
+      timePicker: true,
+      startDate: moment().startOf('hour'),
+      endDate: moment().startOf('hour').add(32, 'hour'),
+      locale: {
+        format: 'M/DD hh:mm A'
+      }
+    });
+
+    var start = moment();
+    var end = moment();
+
+    function cbTheaterCluster(start, end) {
+      $('#js-daterangepicker-predefined-theater-cluster .js-daterangepicker-predefined-preview-theater-cluster').html(start.format('MMM D') + ' - ' + end.format('MMM D, YYYY'));
+    }
+
+    $('#js-daterangepicker-predefined-theater-cluster').daterangepicker({
+      startDate: start,
+      endDate: end,
+      ranges: {
+        'Today': [moment(), moment()]
+      }
+    }, cbTheaterCluster);
+
+    cbTheaterCluster(start, end);
+
+    function cbMovies(start, end) {
+      $('#js-daterangepicker-predefined-movies .js-daterangepicker-predefined-preview-movies').html(start.format('MMM D') + ' - ' + end.format('MMM D, YYYY'));
+    }
+
+    $('#js-daterangepicker-predefined-movies').daterangepicker({
+      startDate: start,
+      endDate: end,
+      ranges: {
+        'Today': [moment(), moment()]
+      }
+    }, cbMovies);
+
+    cbMovies(start, end);
+
+    // INITIALIZATION OF DROPZONE FILE ATTACH MODULE
+    // =======================================================
+    $('.js-dropzone').each(function () {
+      var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
+    });
+ 
+     // INITIALIZATION OF FLATPICKR
+    // =======================================================
+    $('.js-flatpickr').each(function () {
+      $.HSCore.components.HSFlatpickr.init($(this));
+    });
+    
+    // INITIALIZATION OF BUBBLE CHARTJS WITH DATALABELS PLUGIN
+    // =======================================================
+    $('.js-chart-datalabels').each(function () {
+      $.HSCore.components.HSChartJS.init($(this), {
+        plugins: [ChartDataLabels],
+        options: {
+          plugins: {
+            datalabels: {
+              anchor: function(context) {
+                var value = context.dataset.data[context.dataIndex];
+                return value.r < 20 ? 'end' : 'center';
+              },
+              align: function(context) {
+                var value = context.dataset.data[context.dataIndex];
+                return value.r < 20 ? 'end' : 'center';
+              },
+              color: function(context) {
+                var value = context.dataset.data[context.dataIndex];
+                return value.r < 20 ? context.dataset.backgroundColor : context.dataset.color;
+              },
+              font: function(context) {
+                var value = context.dataset.data[context.dataIndex],
+                  fontSize = 25;
+
+                if (value.r > 50) {
+                  fontSize = 35;
+                }
+
+                if (value.r > 70) {
+                  fontSize = 55;
+                }
+
+                return {
+                  weight: 'lighter',
+                  size: fontSize
+                };
+              },
+              offset: 2,
+              padding: 0
+            }
+          }
+        },
+      });
+    });
+
+    
+    // INITIALIZATION OF DATERANGEPICKER
+    // =======================================================
+    $('.js-daterangepicker').daterangepicker();
+
+    $('.js-daterangepicker-times').daterangepicker({
+      timePicker: true,
+      startDate: moment().startOf('hour'),
+      endDate: moment().startOf('hour').add(32, 'hour'),
+      locale: {
+        format: 'M/DD hh:mm A'
+      }
+    });
+
+    var start = moment();
+    var end = moment();
+
+    function cbTheaterCluster(start, end) {
+      var start_date = new Date(start);
+      var end_date = new Date(end);
+
+      //set value for date when statistics theater cluster
+      $('#date_start_cluster').val(start_date);
+      $('#date_end_cluster').val(end_date);
+
+      if(start_date.getDate() === end_date.getDate())
+      {
+        $('#js-daterangepicker-predefined-theater-cluster .js-daterangepicker-predefined-preview-theater-cluster').html(start.format('DD-MM-YYYY'));
+      }
+      else
+      {
+        $('#js-daterangepicker-predefined-theater-cluster .js-daterangepicker-predefined-preview-theater-cluster').html(start.format('DD-MM-YYYY') + ' - ' + end.format('DD-MM-YYYY'));
+      }
+    }
+
+    $('#js-daterangepicker-predefined-theater-cluster').daterangepicker({
+      startDate: start,
+      endDate: end,
+      ranges: {
+        'Hôm Nay': [moment(), moment()],      
+      }
+    }, cbTheaterCluster);
+
+    cbTheaterCluster(start, end);
+
+    function cbMovies(start, end) {
+      var start_date = new Date(start);
+      var end_date = new Date(end);
+      //set value for date when statistic movies
+      $('#date_start_movies').val(start_date);
+      $('#date_end_movies').val(end_date);
+
+      if(start_date.getDate() === end_date.getDate())
+      {
+        $('#js-daterangepicker-predefined-movies .js-daterangepicker-predefined-preview-movies').html(start.format('DD-MM-YYYY'));
+      }
+      else
+      {
+        $('#js-daterangepicker-predefined-movies .js-daterangepicker-predefined-preview-movies').html(start.format('DD-MM-YYYY') + ' - ' + end.format('DD-MM-YYYY'));
+      }
+    }
+
+    $('#js-daterangepicker-predefined-movies').daterangepicker({
+      startDate: start,
+      endDate: end,
+      ranges: {
+        'Hôm Nay': [moment(), moment()],      
+      }
+    }, cbMovies);
+
+    cbMovies(start, end);
+    
+    // INITIALIZATION OF DATATABLES
+    // =======================================================
+    var datatable = $.HSCore.components.HSDatatables.init($('#datatable'), {
+      select: {
+        style: 'multi',
+        selector: 'td:first-child input[type="checkbox"]',
+        classMap: {
+          checkAll: '#datatableCheckAll',
+          counter: '#datatableCounter',
+          counterInfo: '#datatableCounterInfo'
+        }
+      },
+      language: {
+        zeroRecords: '<div class="text-center p-4">' +
+            '<img class="mb-3" src="/admin/assets/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">' +
+            '<p class="mb-0">No data to show</p>' +
+            '</div>'
+      }
+    });
+
+
+    $('#datatableSearch').on('mouseup', function (e) {
+      var $input = $(this),
+        oldValue = $input.val();
+
+      if (oldValue == "") return;
+
+      setTimeout(function(){
+        var newValue = $input.val();
+
+        if (newValue == ""){
+          // Gotcha
+          datatable.search('').draw();
+        }
+      }, 1);
+    });
+
+    
+    // INITIALIZATION OF CLIPBOARD
+    // =======================================================
+    $('.js-clipboard').each(function() {
+      var clipboard = $.HSCore.components.HSClipboard.init(this);
+    });
+
+    $('a.btn.btn-sm.btn-danger').click(function() {
+      var href = $(this).attr('href');
+      $('#btnConfirm').attr('href', href);
+    });
+
+  });
+
+  function toast() {
+      $('#toast').toast({
+        delay: 2000
+      });
+
+      $('#toast').toast('show');
+    }
+
+</script>
+
+     
+
+<% 
+      if(toastMessage) { %>
+        <!-- Toast -->
+        <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 70px; right: 30px; z-index: 9999;">
+          
+          <% if(toastMessage.title == "Thành Công") { %> 
+            <div class="toast-header" style="border-bottom:3px solid green;">             
+                <i class="fas fa-check-circle" style="padding-right: 10px; color: green;"></i>
+                <h5 class="mb-0">Thành Công</h5>
+                <button type="button" class="close ml-3" data-dismiss="toast" aria-label="Close">
+                  <i class="tio-clear" aria-hidden="true"></i>
+                </button>
+            </div>
+
+          <% } else { %>
+            <div class="toast-header" style="border-bottom:3px solid red;">             
+              <i class="fas fa-exclamation-circle" style="padding-right: 10px; color: red;"></i>
+              <h5 class="mb-0">Thất Bại</h5>
+              <button type="button" class="close ml-3" data-dismiss="toast" aria-label="Close">
+                <i class="tio-clear" aria-hidden="true"></i>
+              </button>
+            </div>
+            
+          <% } %> 
+
+          <div class="toast-body">
+            <%= toastMessage.msg %>
+          </div>
+
+        </div>
+      <!-- End Toast -->
+      <script>
+        toast();
+      </script> 
+  <%  } %>
+</body>
+
+</html>

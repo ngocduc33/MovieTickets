@@ -1,0 +1,384 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list" class="active">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                        <% } else { %>
+                                <a href="/user/sign-in">Đăng nhập</a>
+                            <% } %>
+
+                    
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="banner-section-detail-movie">
+    <div class="banner-bg bg_img bg-fixed" data-background="/user/images/banner/"></div>
+    <div class="poster-detail-movie">
+        <img class="poster-cinema-img" src="/user/images/poster/uu-dai-detail-movie.jpg" alt="sidebar">
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Movie-Section========== -->
+<section class="movie-section padding-bottom">
+    <div class="container">
+        <div class="row flex-wrap-reverse justify-content-center">
+            <div class="col-sm-10 col-md-8 col-lg-3">
+                <div class="widget-1 widget-banner">
+                    <div class="widget-1-body">
+                        <a href="#0">
+                            <img src="/user/images/sidebar/banner/banner01.jpg" alt="banner">
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-1 widget-check">
+                    <div class="widget-1-body">
+                        <h6 class="subtitle">Hình thức chiếu</h6>
+                        <div class="check-area">
+                            <div class="form-group">
+                                <input type="checkbox" name="mode" id="mode1"><label for="mode1">2D</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="mode" id="mode2"><label for="mode2">3D</label>
+                            </div>
+                        </div>
+                        <div class="add-check-area">
+                            <a href="#0">view more <i class="plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-1 widget-check">
+                    <div class="widget-1-body">
+                        <h6 class="subtitle">Thể loại phim</h6>
+                        <div class="check-area">
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre1"><label for="genre1">thriller</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre2"><label for="genre2">horror</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre3"><label for="genre3">drama</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre4"><label for="genre4">romance</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre5"><label for="genre5">action</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre6"><label for="genre6">comedy</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre7"><label for="genre7">romantic</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre8"><label for="genre8">animation</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre9"><label for="genre9">sci-fi</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="genre" id="genre10"><label for="genre10">adventure</label>
+                            </div>
+                        </div>
+                        <div class="add-check-area">
+                            <a href="#0">view more <i class="plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-1 widget-banner">
+                    <div class="widget-1-body">
+                        <a href="#0">
+                            <img src="/user/images/sidebar/banner/banner02.jpg" alt="banner">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 mb-50 mb-lg-0">
+                <div class="filter-tab tab">
+                    <div class="filter-area">
+                        <div class="filter-main">
+                            <div class="left">
+                                <div class="item">
+                                    <span class="show">Hiển thị :</span>
+                                    <select class="select-bar">
+                                        <option value="12">12</option>
+                                        <option value="15">15</option>
+                                        <option value="18">18</option>
+                                        <option value="21">21</option>
+                                        <option value="24">24</option>
+                                        <option value="27">27</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <span class="show">Sắp xếp :</span>
+                                    <select class="select-bar">
+                                        <option value="showing">Ngày ra mắt</option>
+                                        <option value="exclusive">Lượt xem</option>
+                                        <option value="most-view">Yêu thích</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <ul class="grid-button tab-menu">
+                                <li>
+                                    <i class="fas fa-th"></i>
+                                </li>
+                                <li class="active">
+                                    <i class="fas fa-bars"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-area">
+                        <div class="tab-item">
+                            <div class="row mb-10 justify-content-center">
+                                <% movies.forEach(function(movie) { %>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="movie-grid">
+                                            <div class="movie-thumb c-thumb">
+                                                <a href="/user/movie-detail/<%= movie.id %>">
+                                                    <% if(movie.poster) { %>
+                                                        <img src="data:image/png;base64,<%= movie.poster %>" alt="movie">
+                                                    <% } else {%>
+                                                        <img src="/user/images/movie/movie01.jpg" alt="movie">
+                                                    <% } %>
+                                                </a>
+                                            </div>
+                                            <div class="movie-content bg-one">
+                                                <h5 class="title m-0">
+                                                    <a href="/user/movie-detail/<%= movie.id %>">
+                                                        <%= movie.name %>
+                                                    </a>
+                                                </h5>
+                                                <ul class="movie-rating-percent">
+                                                    <li>
+                                                        <div class="thumb">
+                                                            <img src="/user/images/movie/view.png" alt="movie">
+                                                        </div>
+                                                        <span class="content"><%= movie.viewed %></span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="thumb">
+                                                            <img src="/user/images/movie/heart.png" alt="movie">
+                                                        </div>
+                                                        <span class="content"><%= movie.liked %></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="movie-area mb-10">
+                                <% movies.forEach(function(movie) { %>
+                                    <div class="movie-list">
+                                        <div class="movie-thumb c-thumb">
+                                            <% if(movie.poster) { %>
+                                                <a href="/user/movie-detail/<%= movie.id %>" class="w-100 bg_img h-100" data-background="data:image/png;base64,<%= movie.poster %>">
+                                                    <img class="d-sm-none" src="data:image/png;base64,<%= movie.poster %>" alt="movie">
+                                                </a>
+                                            <% } else {%>
+                                                <a href="/user/movie-detail/<%= movie.id %>" class="w-100 bg_img h-100" data-background="/user/images/movie/movie01.jpg">
+                                                    <img class="d-sm-none" src="/user/images/movie/movie01.jpg" alt="movie">
+                                                </a>
+                                            <% } %>
+                                        </div>
+                                        <div class="movie-content bg-one">
+                                            <h5 class="title">
+                                                <a href="/user/movie-detail/<%= movie.id %>">
+                                                    <%= movie.name %>
+                                                </a>
+                                            </h5>
+                                            <p class="duration"><span>Thời lượng: </span>
+                                                <%= movie.duration %>
+                                            </p>
+                                            <div class="movie-tags">
+                                                <a href="#0">action</a>
+                                                <a href="#0">adventure</a>
+                                                <a href="#0">fantasy</a>
+                                            </div>
+                                            <div class="release">
+                                                <span>Ngày ra mắt: </span>
+                                                <a href="#0">
+                                                    <%= moment(movie.releaseDate).format('DD-MM-YYYY')%>
+                                                </a>
+                                            </div>
+                                            <ul class="movie-rating-percent">
+                                                <li>
+                                                    <div class="thumb">
+                                                        <img src="/user/images/movie/view.png" alt="movie">
+                                                    </div>
+                                                    <span class="content">lượt xem: <%= movie.viewed %></span>
+                                                </li>
+                                                <li>
+                                                    <div class="thumb">
+                                                        <img src="/user/images/movie/heart.png" alt="movie">
+                                                    </div>
+                                                    <span class="content">yêu thích: <%= movie.liked %></span>
+                                                </li>
+                                            </ul>
+                                            <div class="book-area">
+                                                <div class="book-ticket">
+                                                    <div class="react-item">
+                                                        <a href="#0">
+                                                            <div class="thumb">
+                                                                <img src="/user/images/icons/heart.png" alt="icons">
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item mr-auto">
+                                                        <a href="#0">
+                                                            <div class="thumb">
+                                                                <img src="/user/images/icons/book.png" alt="icons">
+                                                            </div>
+                                                            <span>Đặt vé</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item">
+                                                        <a href="<%= movie.trailer %>" class="popup-video">
+                                                            <div class="thumb">
+                                                                <img src="/user/images/icons/play-button.png" alt="icons">
+                                                            </div>
+                                                            <span>Xem trailer</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- pagination -->
+                    <!-- hiển thị phân trang nếu có trang -->
+                    <% if(totalPage > 0) { %>
+                    <div class="pagination-area text-center">
+
+                        <!-- FIRST -->
+                        <!-- Nếu trang hiện tại bằng 1 thì Prev disable -->
+                        <% if(current == 1) { %>
+                            <a href="#0" class="disabled"><i class="fas fa-angle-double-left"></i><span>First</span></a>
+                        <% } else { %>
+                            <% if(sort !== null) { %>
+                                <a href="/user/movie-list/<%= sort %>/1"><i class="fas fa-angle-double-left"></i><span>First</span></a>
+                            <% } else { %>
+                                <a href="/user/movie-list/1"><i class="fas fa-angle-double-left"></i><span>First</span></a>
+                            <% } %>
+                        <% } %>
+                        <!-- FIRST -->
+
+                        <!-- ITEMS -->
+                        <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
+                        <% if (i !== 1) { %>
+                            <a href="#0" class="disabled">...</a>
+                        <% } %>
+                        <!-- lặp qua từng trang và tăng số trang -->
+                        <% for(; i <= (Number(current) + 2) && i <= totalPage; i++) { %>
+                        <% if(i == current) { %>
+                            <% if(sort !== null) { %>
+                                <a href="/user/movie-list/<%= sort %>/<%= i %>" class="active"><%= i %></a>
+                            <% } else { %>
+                                <a href="/user/movie-list/<%= i %>" class="active"><%= i %></a>
+                            <% } %>
+                        <% } else { %>   
+                            <% if(sort !== null) { %>   
+                                <a href="/user/movie-list/<%= sort %>/<%= i %>"><%= i %></a>
+                            <% } else { %>   
+                                <a href="/user/movie-list/<%= i %>"><%= i %></a>
+                            <% } %>      
+                        <% } %>
+                        <% if (i == Number(current) + 2 && i < totalPage) { %>
+                            <a href="#0" class="disabled">...</a>
+                        <% } %>
+                        <% } %> 
+                        <!-- ITEMS -->
+
+                        <!-- LAST -->
+                        <!-- Nếu trang hiện tại bằng tổng số trang thì Next disable -->
+                        <% if(current == totalPage) { %>
+                            <a href="#0" class="disabled"><span>Last</span><i class="fas fa-angle-double-right"></i></a>
+                        <% } else { %> 
+                            <% if(sort !== null) { %>
+                                <a href="/user/movie-list/<%= sort %>/<%= totalPage %>"><span>Last</span><i class="fas fa-angle-double-right"></i></a>
+                            <% } else { %>
+                                <a href="/user/movie-list/<%= totalPage %>"><span>Last</span><i class="fas fa-angle-double-right"></i></a>
+                            <% } %>
+                        <% } %>
+                        <!-- LAST -->
+                    </div>
+                    <% } %>
+                    <!-- pagination -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Movie-Section========== -->

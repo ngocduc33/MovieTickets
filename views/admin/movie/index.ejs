@@ -1,0 +1,213 @@
+ <!-- Content -->
+ 
+ <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center mb-3">
+        <div class="col-sm mb-2 mb-sm-0">
+          <h1 class="page-header-title">Danh Sách Phim<span class="badge badge-soft-dark ml-2"></span></h1>     
+        </div>
+
+        <div class="col-sm-auto">
+          <a class="btn btn-primary" href="/admin/movie/add">Thêm Phim</a>
+        </div>
+      </div>
+      <!-- End Row -->
+
+      <!-- Nav Scroller -->
+      <div class="js-nav-scroller hs-nav-scroller-horizontal">
+        <!-- Nav -->
+        <ul class="nav nav-tabs page-header-tabs" id="pageHeaderTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Tất cả phim</a>
+          </li>
+        </ul>
+        <!-- End Nav -->
+      </div>
+      <!-- End Nav Scroller -->
+    </div>
+    <!-- End Page Header -->
+
+
+    <!-- End Row -->
+
+    <!-- Card -->
+    <div class="card">
+      <!-- Header -->
+      <div class="card-header">
+        <div class="row justify-content-between align-items-center flex-grow-1">
+          <div class="col-md-4">
+            <form>
+              <!-- Search -->
+              <div class="input-group input-group-merge input-group-flush">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="tio-search"></i>
+                  </div>
+                </div>
+                <input id="datatableSearch" type="search" class="form-control" placeholder="Tìm phim" aria-label="Search users">
+              </div>
+              <!-- End Search -->
+            </form>
+          </div>
+
+          <div class="col-md-8">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <label style="margin: auto;">Ngày công chiếu: </label>
+                </div>
+                <div class="col-auto" >
+                    <div id="projectDeadlineNewProjectFlatpickr" class="js-flatpickr flatpickr-custom input-group input-group-merge"
+                    data-hs-flatpickr-options='{
+                     "appendTo": "#projectDeadlineNewProjectFlatpickr",
+                     "dateFormat": "d/m/Y",
+                     "wrap": true
+                   }'>
+                 <div class="input-group-prepend" data-toggle>
+                   <div class="input-group-text">
+                     <i class="tio-date-range"></i>
+                   </div>
+                 </div>
+             
+                 <input type="text" class="flatpickr-custom-form-control form-control" id="projectDeadlineFlatpickrNewProjectLabel" placeholder="Select dates" data-input value="29/06/2020">
+               </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Row -->
+      </div>
+      <!-- End Header -->
+
+      <!-- Table -->
+      <div class="table-responsive datatable-custom">
+        <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
+                 "columnDefs": [{
+                    "targets": [1],
+                    "orderable": false
+                  }],
+                 "order": [],
+                 "info": {
+                   "totalQty": "#datatableWithPaginationInfoTotalQty"
+                 },
+                 "search": "#datatableSearch",
+                 "entries": "#datatableEntries",
+                 "pageLength": 12,
+                 "isResponsive": false,
+                 "isShowPaging": false,
+                 "pagination": "datatablePagination"
+               }'>
+          <thead class="thead-light">
+            <tr>              
+              <th>ID</th>
+              <th>Phim</th>
+              <th>Ngày Công Chiếu</th>
+              <th>Thời Lượng</th>
+              <th>Trailer</th>
+              <th>Đã xem</th>
+              <th>Đã thích</th>
+              <th>Thao Tác</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% for (let i = 0;i < movieList.length; i++){ %>
+            <tr> 
+              <td><%= i + 1 %></td>            
+              <td>
+                <a class="media align-items-center" href="/admin/movie/detail/<%= movieList[i].id %>">
+                  <img class="avatar avatar-lg mr-3" src="data:image/png;base64,<%= movieList[i].poster %>" alt="Image Description">
+                  <div class="media-body">
+                    <h5 class="text-hover-primary mb-0"> <%= movieList[i].name %> </h5>
+                  </div>
+                </a>
+              </td>
+              <td> <%= moment(movieList[i].releaseDate).format('DD-MM-YYYY') %></td>
+              <td> <%= movieList[i].duration %> phút</td>       
+              <td> <%= movieList[i].trailer %></td>    
+              <td> <%= movieList[i].viewed %></td>
+              <td> <%= movieList[i].liked %></td> 
+              <td>
+                <div class="btn-group" role="group">
+                  <!-- <a class="btn btn-sm btn-success" href="/admin/movie/detail/<%= movieList[i].id %>">
+                    <i class="tio-edit"></i> Sửa
+                  </a> -->
+                  <a class="btn btn-sm btn-danger" href="/admin/movie/delete/<%= movieList[i].id %>" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="tio-delete"></i> Xóa
+                  </a>               
+                </div>
+              </td>
+            </tr>
+            <% } %>
+        
+          </tbody>
+        </table>
+      </div>
+      <!-- End Table -->
+      
+      <!-- Modal -->
+      <div id="exampleModalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Thông Báo</h5>
+              <button type="button" class="btn btn-xs btn-icon btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
+                <i class="tio-clear tio-lg"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Bạn xác nhận xóa phim đã chọn?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-white" data-dismiss="modal">Thoát</button>
+              <a id="btnConfirm" href="" class="btn btn-primary">Xác Nhận</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="card-footer">
+        <!-- Pagination -->
+        <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+          <div class="col-sm mb-2 mb-sm-0">
+            <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+              <span class="mr-2">Showing:</span>
+
+              <!-- Select -->
+              <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
+                        "minimumResultsForSearch": "Infinity",
+                        "customClass": "custom-select custom-select-sm custom-select-borderless",
+                        "dropdownAutoWidth": true,
+                        "width": true
+                      }'>
+                <option value="12" selected="">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+              </select>
+              <!-- End Select -->
+
+              <span class="text-secondary mr-2">of</span>
+
+              <!-- Pagination Quantity -->
+              <span id="datatableWithPaginationInfoTotalQty"></span>
+            </div>
+          </div>
+
+          <div class="col-sm-auto">
+            <div class="d-flex justify-content-center justify-content-sm-end">
+              <!-- Pagination -->
+              <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+            </div>
+          </div>
+        </div>
+        <!-- End Pagination -->
+      </div>
+      <!-- End Footer -->
+    </div>
+    <!-- End Card -->
+</div>
+
+<!-- End Content -->

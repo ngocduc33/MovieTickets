@@ -1,0 +1,235 @@
+<section class="window-warning inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle"> Thông Báo </h6>
+        <h4 class="title">Bạn chỉ được phép chọn tối đa 8 ghế</h4>
+        <a class="custom-button seatPlanButton">Đã Hiểu</a>
+    </div>
+</section>
+
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                        <% } else { %>
+                                <a href="/user/sign-in">Đăng nhập</a>
+                            <% } %>
+
+                    
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img seat-plan-banner" data-background="/user/images/banner/banner04.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title"> <%= movie.name %> </h3>
+                <div class="tags">
+                    <a> <%= moment(showtime.date).format('DD/MM/YYYY') %>, </a>
+                    <a> <%= showtime.start_time.substr(0, 5) %> ~ <%= showtime.end_time.substr(0, 5) %> </a>
+                    <br>
+                    <a> <%= theater.name %> - </a>
+                    <a> <%= theater.kind %> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Page-Title========== -->
+<section class="page-title bg-one">
+    <div class="container">
+        <div class="page-title-area">
+            <div class="item md-order-1">
+                <a href="/user/movie-ticket-plan" class="custom-button back-button">
+                    <i class="flaticon-double-right-arrows-angles"></i>back
+                </a>
+            </div>
+            <div class="item date-item">
+                <span class="date"><%= moment(showtime.date).format('DD/MM/YYYY') %></span>
+                <select class="select-bar">
+                    <option selected value="sc1"><%= showtime.start_time.substr(0, 5) %> ~ <%= showtime.end_time.substr(0, 5) %></option>
+                </select>
+            </div>
+            <div class="item">
+                <h5 class="title">05:00</h5>
+                <p>Mins Left</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Page-Title========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="seat-plan-section padding-bottom padding-top">
+    <div class="container">
+        <div class="screen-area">
+            <h4 class="screen">Màn hình</h4>
+            <div class="screen-thumb">
+                <img src="/user/images/movie/screen-thumb.png" alt="movie">
+            </div>
+
+            <h5 class="subtitle">Ghế thường</h5>
+            <div class="screen-wrapper"> 
+                <ul class="seat-area">  
+                    <%
+                        for(let i = 65; i <= 65 + theater.vertical_size; i++) {
+                            const verticalAddress = String.fromCharCode(i);
+                    %>  
+                    <li class="seat-line"> <!-- chạy vòng for theo chiều dọc -->  
+                        <span> <%= verticalAddress %> </span>
+                        <ul class="seat--area"> <!-- chạy vòng for theo chiều ngang -->                          
+                            <li class="front-seat">
+                                <ul>
+                                    <% for(let j = 1; j <= 4; j++) { 
+                                        const state = bookedSeatList.find(s => s.vertical_address.charCodeAt(0) == i 
+                                            && s.horizontal_address == j);
+                                    %>
+                                    <%  if(state) {  %>
+                                            <li class="single-seat seat-booked" >
+                                                <img src="/user/images/movie/seat01-booked.png" alt="seat">
+                                    <%  } else { %>
+                                            <li class="single-seat seat-free">
+                                                <img src="/user/images/movie/seat01-free.png" alt="seat">
+                                    <%  } %>
+                                                <span class="sit-num"><%= verticalAddress + j %></span>
+                                            </li>
+                                    <% }  %>
+                                </ul>
+                            </li>
+
+                            <li class="front-seat">
+                                <ul>
+                                    <% for(let j = 5; j <= theater.horizontial_size - 4; j++) { 
+                                        const state = bookedSeatList.find(s => s.vertical_address.charCodeAt(0) == i 
+                                            && s.horizontal_address == j);
+                                    %>
+                                    <%  if(state) {  %>
+                                            <li class="single-seat seat-booked" >
+                                                <img src="/user/images/movie/seat01-booked.png" alt="seat">
+                                    <%  } else { %>
+                                            <li class="single-seat seat-free">
+                                                <img src="/user/images/movie/seat01-free.png" alt="seat">
+                                    <%  } %>
+                                                <span class="sit-num"><%= verticalAddress + j %></span>
+                                            </li>
+                                    <% }  %>
+                                </ul>
+                            </li>
+
+                            <li class="front-seat">
+                                <ul>
+                                    <% for(let j = theater.horizontial_size - 3; j <= theater.horizontial_size; j++) { 
+                                        const state = bookedSeatList.find(s => s.vertical_address.charCodeAt(0) == i 
+                                            && s.horizontal_address == j);
+                                    %>
+                                    <%  if(state) {  %>
+                                            <li class="single-seat seat-booked" >
+                                                <img src="/user/images/movie/seat01-booked.png" alt="seat">
+                                    <%  } else { %>
+                                            <li class="single-seat seat-free">
+                                                <img src="/user/images/movie/seat01-free.png" alt="seat">
+                                    <%  } %>
+                                                <span class="sit-num"><%= verticalAddress + j %></span>
+                                            </li>
+                                    <% }  %>
+                                </ul>
+                            </li>                            
+                            
+                        </ul>
+                        <span><%= verticalAddress %></span>
+                    </li>
+                    <%  }  %>            
+                </ul>
+            </div>
+       
+        </div>
+
+        <input value="<%= showtime.price %>" id="price" readonly hidden>
+
+        <form method="POST" id="formSeatPlan">
+            <div class="proceed-book bg_img" data-background="/user/images/movie/movie-bg-proceed.jpg">
+                <div class="proceed-to-book">
+                    <div class="book-item">
+                        <span>Ghế đã chọn:</span>
+                        <h3 class="title" id="currentSeatList" ></h3>
+                        <input name="currentSeatList" readonly hidden>
+                    </div>
+                    <div class="book-item">
+                        <span>Tổng tiền</span>
+                        <h3 class="title" id="totalPrice"></h3>
+                    </div>
+                    <div class="book-item">                      
+                        <a id="submitSeatPlan" class="custom-button" style="cursor: pointer;">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+ 
+    </div>
+</div>
+<!-- ==========Movie-Section========== -->

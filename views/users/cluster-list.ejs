@@ -1,0 +1,112 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img
+                        style="border-radius: 20px"
+                        src="/user/images/logo/logo-cinema.png"
+                        alt="logo"
+                    />
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list" class="active">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role ==
+                        true) { %>
+                        <li>
+                            <a
+                                href="/user/movie-customer-profile"
+                                class="active"
+                                >Tài khoản</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/user/ticket-list">Vé của tôi</a>
+                        </li>
+                        <li>
+                            <a href="/admin">Quản lý</a>
+                        </li>
+                        <% } else { %>
+                        <li>
+                            <a
+                                href="/user/movie-customer-profile"
+                                class="active"
+                                >Tài khoản</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/user/ticket-list">Vé của tôi</a>
+                        </li>
+
+                        <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                    <a><%=currentUser.user_name%></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="/user/logout">Đăng xuất</a>
+                        </li>
+                    </ul>
+                    <% } else { %>
+                    <a href="/user/sign-in">Đăng nhập</a>
+                    <% } %>
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Client-Section========== -->
+<section class="client-section padding-bottom padding-top bg_img" data-background="./assets/images/client/client-bg.jpg">
+    <div class="container">
+        <div class="section-header-3">
+            <h2 class="title">Danh sách các cụm rạp của hệ thống</h2>
+        </div>
+        <div class="client-slider owl-carousel owl-theme">
+            <% if(lstCluster) { %>
+            <% lstCluster.forEach(cluster => { %>
+                <div class="client-item">
+                    <div class="client-thumb">
+                        <a href="/user/cluster-detail/<%= cluster.id %>">
+                            <img src="data:image/png;base64,<%= cluster.picture %>" alt="client">
+                        </a>
+                    </div>
+                    <div class="client-content">
+                        <h5 class="title">
+                            <a href="/user/cluster-detail/<%= cluster.id %>"><%= cluster.name %></a>
+                        </h5>
+                        <span class="content"><%= cluster.address %></span>
+                    </div>
+                </div>
+            <% }) } %>
+        </div>
+    </div>
+</section>
+<!-- ==========Client-Section========== -->

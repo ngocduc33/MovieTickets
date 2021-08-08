@@ -1,0 +1,135 @@
+<!-- Content -->
+<div class="content container-fluid">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/admin/theater">Rạp</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Thông tin rạp</h1>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+  <!-- End Page Header -->
+<form method="POST">
+  <div class="row">
+    <div class="col-lg">
+      <!-- Card -->
+      <div class="card mb-3 mb-lg-5">
+        <!-- Header -->
+        <div class="card-header">
+          <h4 class="card-header-title">Thông tin rạp</h4>
+        </div>
+        <!-- End Header -->
+
+        <!-- Body -->
+        <div class="card-body">
+          <!-- Form Group -->
+          <div class="form-group">
+            <label for="name" class="input-label">Tên <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+            <input type="text" class="form-control" name="name" id="name" value="<%= Theater.name %>">
+          </div>
+          <!-- End Form Group -->
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="SKULabel" class="input-label">Cụm Rạp</label>
+                <!-- Select2 -->
+                <select class="js-select2-custom custom-select" name="theater_cluster_ID" id="theater_cluster_ID"  size="1" style="opacity: 0;"
+                  data-hs-select2-options='{
+                    "placeholder": "Chọn cụm rạp",
+                    "searchInputPlaceholder": "Tìm cụm rạp"
+                  }'>
+                  <option value="">Bất kỳ</option>
+                  <% if(lstTheaterCluster) {%>
+                    <% lstTheaterCluster.forEach(item => { %>
+                      <option value="<%=item.id %>"><%=item.name %></option>
+                    <% }) %>
+                  <% } else { %>
+                  <% } %>
+                </select>
+                <!-- End Select2 -->
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="SKULabel" class="input-label">Loại Rạp</label>
+                <!-- Select2 -->
+                <select class="js-select2-custom custom-select"  name="kind" id="kind" value="<%= Theater.kind %>" size="1" style="opacity: 0;"
+                  data-hs-select2-options='{
+                    "placeholder": "Chọn loại rạp",
+                    "searchInputPlaceholder": "Tìm loại rạp"
+                  }'>
+                    <option value="1">2D</option>
+                    <option value="2">3D</option>
+                    <option value="3">4DX</option>
+                    <option value="4">IMAX</option>
+    
+                </select>
+                <!-- End Select2 -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="SKULabel" class="input-label">Chiều Ngang</label>
+                <input type="text" class="form-control" name="horizontial_size" id="horizontial_size" value="<%= Theater.horizontial_size %>" placeholder="" aria-label="Shirt, t-shirts, etc.">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="SKULabel" class="input-label">Chiều Dọc</label>
+                <input type="text" class="form-control" name="vertical_size" id="vertical_size" value="<%= Theater.vertical_size %>" placeholder="" aria-label="Shirt, t-shirts, etc.">
+              </div>
+            </div>
+
+            <div class="form-group">  
+              <input type="text" class="form-control" name="id" id="name" value="<%= Theater.id %>" readonly hidden>
+            </div>
+            
+          </div>
+      
+        </div>
+        <!-- Body -->
+      </div>
+      <!-- End Card -->
+   
+    </div>
+
+  
+  </div>
+  <!-- End Row -->
+
+  <div class="position-fixed bottom-0 content-centered-x w-100 z-index-99 mb-3" style="max-width: 40rem;">
+    <!-- Card -->
+    <div class="card card-sm bg-dark border-dark mx-2">
+      <div class="card-body">
+        <div class="row justify-content-center justify-content-sm-between">
+          <div class="col">
+            <button type="button" class="btn btn-ghost-danger">Xóa</button>
+          </div>
+          <div class="col-auto">
+            <!-- <button type="button" class="btn btn-ghost-light mr-2">Nháp</button> -->
+            <button type="submit" class="btn btn-primary" onclick="addClick()">Lưu</button>
+          </div>
+        </div>
+        <!-- End Row -->
+      </div>
+    </div>
+    <!-- End Card -->
+  </div>
+</form>
+</div>
+<!-- End Content -->

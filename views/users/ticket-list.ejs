@@ -1,0 +1,155 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#" class="active">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                        <% } else { %>
+                                <a href="/user/sign-in">Đăng nhập</a>
+                            <% } %>
+       
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+ <!-- ==========Event-Section========== -->
+ <div class="event-facility padding-bottom padding-top">
+    <div class="container"><div class="section-header-3">
+        <span class="cate">Lịch sử đặt vé</span>
+    </div>
+        <div class="row justify-content-center mb-30-none">
+
+            <% if(ticketList.length !== 0) { %>
+            <% ticketList.forEach(item => { %>
+                <% if (item.disableTicket) { %>
+                <div class="col-md-6 col-lg-4 col-sm-10">
+                    <div class="ticket--item disable">
+                        <span class="cate">Đã sử dụng</span>
+                        <div class="ticket-thumb">
+                            <img src="/user/images/event/ticket/ticket03.png" alt="event">
+                        </div>
+                        <div class="ticket-content">
+                            <span class="ticket-title">Vé của bạn</span>
+                            <ul>
+                                <li>Phim: <a href="/user/movie-detail/<%= item.movie.id %>" class="item-list-ticket"><%= item.movie.name %></a></li>
+                                <li>Cụm rạp: <a href="/user/cluster-detail/<%= item.clusterId %>" class="item-list-ticket"><%= item.clusterName %></a></li>
+                                <li>Rạp: <span><%= item.theaterName %></span></li>
+                                <li>Ngày: <span><%= moment(item.date).format('DD/MM/YYYY') %></span></li>
+                                <li>Giờ bắt đầu:  <span><%= moment(item.start_time, "HH:mm:ss").format("HH:mm") %></span></li> 
+                                <li>Giờ kết thúc: <span><%= moment(item.end_time, "HH:mm:ss").format("HH:mm") %></span></li> 
+                                <li>Ghế:
+                                    <% for(let i = 0; i < item.listSeatCode.length; i++) {
+                                        if (i === item.listSeatCode.length - 1) { %>
+                                            <span><%= item.listSeatCode[i] %></span>
+                                        <% } else { %>
+                                            <span><%= item.listSeatCode[i] + ', ' %></span>
+                                    <% } }%>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>
+                    <div class="col-md-6 col-lg-4 col-sm-10">
+                        <div class="ticket--item">
+                            <span class="cate">Chưa sử dụng</span>
+                            <div class="ticket-thumb">
+                                <img src="/user/images/event/ticket/ticket03.png" alt="event">
+                            </div>
+                            <div class="ticket-content">
+                                <span class="ticket-title">Vé của bạn</span>
+                                <ul>
+                                    <li>Phim: <a href="/user/movie-detail/<%= item.movie.id %>" class="item-list-ticket"><%= item.movie.name %></a></li>
+                                    <li>Cụm rạp: <a href="/user/cluster-detail/<%= item.clusterId %>" class="item-list-ticket"><%= item.clusterName %></a></li>
+                                    <li>Rạp: <span><%= item.theaterName %></span></li>
+                                    <li>Ngày: <span><%= moment(item.date).format('DD/MM/YYYY') %></span></li>
+                                    <li>Giờ bắt đầu:  <span><%= moment(item.start_time, "HH:mm:ss").format("HH:mm") %></span></li> 
+                                    <li>Giờ kết thúc: <span><%= moment(item.end_time, "HH:mm:ss").format("HH:mm") %></span></li> 
+                                    <li>Ghế:
+                                        <% for(let i = 0; i < item.listSeatCode.length; i++) {
+                                            if (i === item.listSeatCode.length - 1) { %>
+                                                <span><%= item.listSeatCode[i] %></span>
+                                            <% } else { %>
+                                                <span><%= item.listSeatCode[i] + ', ' %></span>
+                                        <% } }%>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) } else { %>
+                <div class="newslater-section padding-bottom">
+                    <div class="container">
+                        <div class="newslater-container bg_img" data-background="./assets/images/newslater/newslater-bg01.jpg">
+                            <div class="newslater-wrapper">
+                                <h5 class="cate">Không có lịch sử đặt vé</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>
+<!-- ==========Event-Section========== -->

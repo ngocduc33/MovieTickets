@@ -1,0 +1,227 @@
+<!-- Content -->
+<div class="content container-fluid">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="/admin/showtimes">Suất Chiếu</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Thêm Suất Chiếu
+            </li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Thêm Suất Chiếu</h1>
+      </div>
+    </div>
+    <!-- End Row -->
+  </div>
+  <!-- End Page Header -->
+  <form method="POST" id="frm" action="/admin/shows/add">
+    <div class="row">
+      <div class="col-lg">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Thông tin suất chiếu</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <div class="row">
+              <!-- CHỌN PHIM -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Phim</label>
+                  <select name="movieID" id="movieID" class="js-select2-custom custom-select" size="1"
+                    style="opacity: 0" data-hs-select2-options='{
+                      "placeholder": "Chọn phim",
+                      "searchInputPlaceholder": "Tìm phim"
+                    }'>
+                    <option value="">Bất kỳ</option>
+                    <% if(lstMovies) {%>
+                      <% lstMovies.forEach(item=> { %>
+                        <option value="<%=item.id %>">
+                          <%=item.name %>
+                        </option>
+                        <% }) %>
+                          <% } else { %>
+                            <% } %>
+                  </select>
+                </div>
+              </div>
+
+              <!-- CHỌN CỤM RẠP -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Cụm rạp</label>
+                  <select name="clusterID" id="cluster_seleted" class="js-select2-custom custom-select" size="1" style="opacity: 0"
+                    data-hs-select2-options='{
+                      "placeholder": "Chọn cụm rạp",
+                      "searchInputPlaceholder": "Tìm rạp"
+                    }'>
+                    <option value="">Bất kỳ</option>
+                    <% if(lstCluster) {%>
+                      <% lstCluster.forEach(item=> { %>
+                        <option value="<%=item.id %>">
+                          <%=item.name %>
+                        </option>
+                        <% })} else { %>
+                            <option value="">Bất kỳ</option>
+                        <% } %>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- CHỌN RẠP -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Rạp</label>
+                  <select name="theaterID" id="theater_selected" class="js-select2-custom custom-select" size="1"
+                    style="opacity: 0" data-hs-select2-options='{
+                      "placeholder": "Chọn rạp",
+                      "searchInputPlaceholder": "Tìm rạp"
+                    }'>          
+                  </select>
+                </div>
+              </div>
+
+              <!--  CHỌN NGÀY -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Ngày</label>
+                  <div id="dateShows"
+                    class="js-flatpickr flatpickr-custom input-group input-group-merge" data-hs-flatpickr-options='{
+                 "appendTo": "#dateShows",
+                 "dateFormat": "Y-m-d",
+                 "wrap": true
+               }'>
+                    <div class="input-group-prepend" data-toggle>
+                      <div class="input-group-text">
+                        <i class="tio-date-range"></i>
+                      </div>
+                    </div>
+
+                    <input type="date" class="flatpickr-custom-form-control form-control" id="date" name="date"
+                      placeholder="Chọn ngày" data-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- THỜI GIAN BẮT ĐẦU -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Bắt Đầu</label>
+                  <div
+                    id="projectDeadlineNewProjectFlatpickr"
+                    class="
+                      js-flatpickr
+                      flatpickr-custom
+                      input-group input-group-merge
+                    "
+                    data-hs-flatpickr-options='{
+                     "appendTo": "#projectDeadlineNewProjectFlatpickr",
+                     "enableTime": "true",
+                     "data-enable-seconds": "true",
+                     "data-no-calendar" = "true",
+                     "wrap": true
+                   }'
+                  >
+                    <div class="input-group-prepend" data-toggle>
+                      <div class="input-group-text">
+                        <i class="tio-date-range"></i>
+                      </div>
+                    </div>
+  
+                    <input
+                      type="time"
+                      class="flatpickr-custom-form-control form-control"
+                      placeholder="Chọn giờ"
+                      data-input
+                      name="start"
+                      id="start"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- THỜI GIAN KẾT THÚC -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Kết Thúc</label>
+                  <div
+                    id="projectDeadlineNewProjectFlatpickr"
+                    class="
+                      js-flatpickr
+                      flatpickr-custom
+                      input-group input-group-merge
+                    "
+                    data-hs-flatpickr-options='{
+                     "appendTo": "#projectDeadlineNewProjectFlatpickr",
+                     "enableTime": "true",
+                     "data-enable-seconds": "true",
+                     "data-no-calendar" = "true",
+                     "wrap": true
+                   }'
+                  >
+                    <div class="input-group-prepend" data-toggle>
+                      <div class="input-group-text">
+                        <i class="tio-date-range"></i>
+                      </div>
+                    </div>
+  
+                    <input
+                      type="time"
+                      class="flatpickr-custom-form-control form-control"
+                      data-input
+                      name="end"
+                      id="end"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Giá Vé</label>
+                  <input type="number" class="form-control" name="price" id="price" placeholder="Nhập vào giá vé"
+                    aria-label="Shirt, t-shirts, etc.">
+                </div>
+              </div>
+            </div>
+            <!-- Body -->
+          </div>
+          <!-- End Card -->
+        </div>
+        <!-- End Row -->
+
+        <div class="position-fixed bottom-0 content-centered-x w-100 z-index-99 mb-3" style="max-width: 40rem">
+          <!-- Card -->
+          <div class="card card-sm bg-dark border-dark mx-2">
+            <div class="card-body">
+              <div class="row justify-content-center justify-content-sm-between">
+                <div class="col">
+                  <button type="button" class="btn btn-ghost-danger">Xóa</button>
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary" >Lưu</button>
+                </div>
+                <!-- End Row -->
+              </div>
+            </div>
+            <!-- End Card -->
+          </div>
+        </div>
+  </form>
+</div>

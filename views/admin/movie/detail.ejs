@@ -1,0 +1,129 @@
+<!-- Content -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-sm mb-2 mb-sm-0">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-no-gutter">
+              <li class="breadcrumb-item"><a class="breadcrumb-link" href="/admin/movie">Phim</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+            </ol>
+          </nav>
+
+          <!-- <h1 class="page-header-title">Thêm phim</h1> -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Page Header -->
+<form method="POST">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Thông tin phim</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name" class="input-label">Tên phim <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="name" id="name" value="<%= Movie.name %>" >
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="input-label">Ngày công chiếu <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="releaseDate" id="releaseDate" value="<%= Movie.releaseDate %>" >
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="input-label">Thời lượng <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="duration" id="duration" value="<%= Movie.duration %>" >
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="input-label">Trailer <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="trailer" id="trailer" value="<%= Movie.trailer %>" >
+            </div>
+        
+            <div class="form-group">
+              <label for="address" class="input-label">Lượt xem <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="number" class="form-control" name="viewed" id="viewed" value="<%= Movie.viewed %>" disabled >
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="input-label">Lượt thích <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="number" class="form-control" name="liked" id="liked" value="<%= Movie.liked %>" disabled >
+            </div>
+
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card -->
+     
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Card -->
+         <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+           <div class="card-header"> 
+            <h4 class="card-header-title">Poster</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form Group -->
+            <div id="attachFilesLabel" class="js-dropzone dropzone-custom custom-file-boxed">
+              <div class="dz-message custom-file-boxed-label">
+                <input type="file" id="poster" name="poster" hidden >
+                <img class="avatar avatar-xl avatar-4by3 mb-3" src="/views/admin/assets/svg/illustrations/browe.png">
+            
+                <h5>Kéo và thả ảnh của phim vào đây</h5>
+            
+                <p class="mb-2">or</p>
+            
+                <span class="btn btn-sm btn-primary">Chọn ảnh</span>
+              </div>
+            </div>
+            <!-- End Form Group -->          
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card-->
+      
+      </div>
+    </div>
+    <!-- End Row -->
+    <div class="position-fixed bottom-0 content-centered-x w-100 z-index-99 mb-3" style="max-width: 40rem;">
+      <!-- Card -->
+      <div class="card card-sm bg-dark border-dark mx-2">
+        <div class="card-body">
+          <div class="row justify-content-center justify-content-sm-between">
+            <div class="col">
+              <button type="submit" class="btn btn-ghost-danger">Xóa</button>
+            </div>
+            <div class="col-auto">
+              <!-- <button type="button" class="btn btn-ghost-light mr-2">Nháp</button> -->
+              <button type="submit" class="btn btn-primary" onclick="addClick()">Lưu</button>
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+  </form>
+  </div>
+  <!-- End Content -->

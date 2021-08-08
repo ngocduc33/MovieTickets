@@ -1,0 +1,216 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan" class="active">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                        <% } else { %>
+                                <a href="/user/sign-in">Đăng nhập</a>
+                            <% } %>
+
+                    
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning inActive" id="windown-warning">
+    <div class="lay"></div>
+    <div class="warning-item" id="warning-item">
+        <h6 class="subtitle">Xin chào</h6>
+        <h4 class="title">Hãy tiếp tục chọn ghế</h4>
+        <div class="thumb" id="thumb">
+            <img src="/user/images/movie/seat-plan.png" alt="movie">
+        </div>
+        <a href="/user/movie-seat-plan/" class="custom-button seatPlanButton">Chọn ghế<i
+                class="fas fa-angle-right"></i></a>
+    </div>
+</section>
+<!-- ==========Window-Warning-Section========== -->
+
+<!-- ==========Custom-Window-Warning-Section========== -->
+<section class="custom-windown-warning inActive" id="custom-windown-warning">
+    <div class="lay"></div>
+    <div class="custom-warning-item" id="custom-warning-item">
+        <h6 class="subtitle"></h6>
+        <h4 class="title"></h4>
+    </div>
+</section>
+<!-- ==========Custom-Window-Warning-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img" data-background="ass/user/images/banner/banner03.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content">
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Book-Section========== -->
+<section class="book-section bg-one">
+    <div class="container">
+        <form class="ticket-search-form two" id="form_search_ajax">
+            <div class="form-group">
+                <div class="thumb">
+                    <img src="/user/images/ticket/cinema.png" alt="ticket">
+                </div>
+                <span class="type">Chọn phim</span>
+                <select class="select-bar" name="select_movie">
+                    <option value=""></option>
+                    <% if(listMovies) {%>
+                        <% listMovies.map(movie => { %>
+                    <option value="<%= movie.id %>"><%= movie.name %></option>
+                    <% })} else { %>
+                        <option value=""></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="thumb">
+                    <img src="/user/images/ticket/city.png" alt="ticket">
+                </div>
+                <span class="type">Chọn rạp</span>
+                <select disabled class="select-bar" name="select_theater_cluster">
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="thumb">
+                    <img src="/user/images/ticket/date.png" alt="ticket">
+                </div>
+                <span class="type">Chọn ngày</span>
+                <select disabled class="select-bar" name="select_date">
+                </select>
+            </div>
+            <button name="btn_search_showtimes" id="btn_search_showtimes" class="custom-button btn-search">Tìm kiếm</button>
+        </form>
+    </div>
+</section>
+<!-- ==========Book-Section========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="ticket-plan-section padding-bottom padding-top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 mb-5 mb-lg-0">
+                <ul class="seat-plan-wrapper bg-five" id="set_plan_wrapper_ajax" style="display: none;">
+                    <li>
+                        <div class="movie-name">
+                            <div class="icons">
+                                <i class="far fa-heart"></i>
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <a href="#0" class="name" id="movie_search_ajax"></a>
+                            <div class="location-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+                        <div class="movie-schedule" id="movie_schedule_ajax">
+                            <div class="item"></div>
+                        </div>
+                    </li>
+                </ul>
+                <% if(listShowTimes) {%>
+                    <ul class="seat-plan-wrapper bg-five" id="seat_plan_wrapper">
+                        <li>
+                            <div class="movie-name">
+                                <div class="icons">
+                                    <i class="far fa-heart"></i>
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <a href="/user/movie-detail/<%= listShowTimes[0].movie.id %>" class="name">
+                                    <%=listShowTimes[0].movie.name %>
+                                </a>
+                                <div class="location-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                            </div>
+                            <div class="movie-schedule">
+                                <% listShowTimes.map(showtime => { %>                       
+                                    <div class="item" id="showtime_item">
+                                        <input type="hidden" value="<%= showtime.id%>"/>
+                                        <%= moment(showtime.start_time, "HH:mm:ss").format("HH:mm") %>
+                                            -
+                                            <%= moment(showtime.end_time, "HH:mm:ss").format("HH:mm") %>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </li>
+                    </ul>
+                    <% } else if(errors.length > 0){ %>
+                        <section class="window-warning">
+                            <div class="lay"></div>
+                            <div class="warning-item">
+                                <h5 class="title"><%= errors[0] %></h5>
+                                <a href="/user/movie-ticket-plan" class="custom-button seatPlanButton">Tiếp tục<i
+                                    class="fas fa-angle-right"></i></a>
+                            </div>  
+                        </section>   
+                    <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==========Movie-Section========== -->

@@ -1,0 +1,55 @@
+{
+  "name": "doancuoiky",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000M\u0000o\u0000v\u0000i\u0000e\u0000-\u0000t\u0000i\u0000c\u0000k\u0000e\u0000t\u0000-\u0000b\u0000o\u0000o\u0000k\u0000i\u0000n\u0000g\u0000\r\u0000 \u0000",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vonage/server-sdk": "^2.10.10",
+    "base64url": "^3.0.1",
+    "bcrypt": "^5.0.1",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.19.0",
+    "chart.js": "^3.3.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.2",
+    "joi": "^17.4.0",
+    "kill-port": "^1.6.1",
+    "moment": "^2.29.1",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.6.1",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "qrcode": "^1.4.4",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhiHung160420/Movie-ticket-booking.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PhiHung160420/Movie-ticket-booking/issues"
+  },
+  "homepage": "https://github.com/PhiHung160420/Movie-ticket-booking#readme"
+}

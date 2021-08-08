@@ -1,0 +1,155 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img
+                        style="border-radius: 20px"
+                        src="/user/images/logo/logo-cinema.png"
+                        alt="logo"
+                    />
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#" class="active">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role ==
+                        true) { %>
+                        <li>
+                            <a
+                                href="/user/movie-customer-profile"
+                                class="active"
+                                >Tài khoản</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#">Vé của tôi</a>
+                        </li>
+                        <li>
+                            <a href="/admin">Quản lý</a>
+                        </li>
+                        <% } else { %>
+                        <li>
+                            <a
+                                href="/user/movie-customer-profile"
+                                class="active"
+                                >Tài khoản</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/user/ticket-list">Vé của tôi</a>
+                        </li>
+
+                        <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                    <a><%=currentUser.user_name%></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="/user/logout">Đăng xuất</a>
+                        </li>
+                    </ul>
+                    <% } else { %>
+                    <a href="/user/sign-in">Đăng nhập</a>
+                    <% } %>
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Preloader========== -->
+
+<!-- ==========Sign-In-Section========== -->
+<section
+    class="account-section bg_img"
+    data-background="/user/images/account/account-bg.jpg"
+>
+    <div class="container">
+        <div class="padding-top padding-bottom">
+            <div class="account-area">
+                <div class="section-header-3">
+                    <h2 class="title">Thay đổi thông tin</h2>
+                </div>
+                <form
+                    action="/user/edit-info"
+                    class="account-form"
+                    method="POST"
+                >
+                    <div class="form-group">
+                        <label for="username">Họ Tên</label>
+                        <input
+                            type="text"
+                            value="<%=currentUser.user_name%>"
+                            placeholder="Nhập vào họ tên"
+                            id="username"
+                            name="username"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenumber">Số điện thoại</label>
+                        <input
+                            type="text"
+                            value="<%=currentUser.user_phone%>"
+                            placeholder="Nhập vào số điện thoại"
+                            id="phonenumber"
+                            name="phonenumber"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                            type="text"
+                            placeholder="Nhập vào email"
+                            value="<%=currentUser.user_email%>"
+                            id="email"
+                            name="email"
+                            readonly
+                        />
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="Lưu" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Edit-Info-Section========== -->

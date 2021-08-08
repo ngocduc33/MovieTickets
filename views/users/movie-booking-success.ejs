@@ -1,0 +1,158 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Đặt vé</a>
+
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                        <% } else { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            
+                        <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    <% } else { %>
+                        <a href="/user/sign-in">Đăng nhập</a>
+                    <% } %>  
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="speaker-banner bg_img" data-background="/user/images/banner/banner07.jpg">
+    <div class="container">
+        <div class="speaker-banner-content">
+            <h2 class="title">Thông tin vé</h2>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Speaker-Single========== -->
+<section class="speaker-single padding-top pt-lg-0">
+    <div class="container">
+        <div class="speaker-wrapper bg-six padding-top">
+            <div class="speaker-thumb">
+                <img src="<%= qrCode %>" alt="speaker">
+            </div>
+            <div class="speaker-content">
+                <div class="author">
+                    <h2 class="title"><%= movieName %></h2>
+                    <div style="text-align: center; font-size: 20px; color: #31d7a9; margin-bottom: 10px;"> 
+                        <%= theater.kind %> 
+                    </div>
+                </div>
+                <div class="speak-con-wrapper">
+                    <div class="speak-con-area">                       
+                        <div class="item-content-left">
+                            <div class="item">
+                                <div class="item-content">
+                                    <span class="up">
+                                        Rạp:
+                                        <a>
+                                            <%= theater.theater_cluster.name %>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+    
+                            <div class="item">
+                                <div class="item-content">
+                                    <span class="up">Phòng chiếu: 
+                                        <a> <%= theater.name %> </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item-content-right">
+                            <div class="item">
+                                <div class="item-content">
+                                    <span class="up"> 
+                                        Ngày chiếu: 
+                                        <a>
+                                            <%= moment(showtime.date).format('DD/MM/YYYY') %>, 
+                                            <%= showtime.start_time.substr(0, 5) %> ~ <%= showtime.end_time.substr(0, 5) %> 
+                                        </a>      
+                                    </span>
+                                </div>
+                            </div>
+    
+                            <div class="item">
+                                <div class="item-content">
+                                    <span class="up">Ghế:
+                                        <%
+                                            for(let i = 0; i < seatList.length; i++) {
+                                                if (i == seatList.length - 1) { %>
+                                                    <a> <%= seatList[i].seat_code; %> </a>
+                                                <% } else { %>
+                                                    <a> <%= seatList[i].seat_code + ', ' %> </a>
+                                            <% } }
+                                        %>
+                                        <a> </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Speaker-Single========== -->
+

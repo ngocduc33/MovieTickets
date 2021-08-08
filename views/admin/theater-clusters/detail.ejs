@@ -1,0 +1,112 @@
+<!-- Content -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-sm mb-2 mb-sm-0">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-no-gutter">
+              <li class="breadcrumb-item"><a class="breadcrumb-link" href="/admin/theater-clusters">Cụm Rạp</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Cập Nhật Cụm Rạp</li>
+            </ol>
+          </nav>
+
+          <h1 class="page-header-title">Cập Nhật Cụm Rạp</h1>
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Page Header -->
+<form method="POST">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Thông tin cụm rạp</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name" class="input-label">Tên <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="name" id="name" value="<%= theaterClusters.name %>">
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="input-label">Địa chỉ <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="address" id="address" value="<%= theaterClusters.address %>" >
+            </div>
+        
+            <div class="form-group">  
+                <input type="text" class="form-control" name="id" id="address" value="<%= theaterClusters.id %>" readonly hidden>
+            </div>
+
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card -->
+     
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Hình ảnh cụm rạp</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form Group -->
+            <div id="attachFilesLabel" class="js-dropzone dropzone-custom custom-file-boxed">
+              <div class="dz-message custom-file-boxed-label">
+
+                <input type="file" id="pictureUpdate" name="pictureUpdate" hidden >
+
+                <img class="avatar avatar-xl avatar-4by3 mb-3" src="data:image/png;base64,<%= theaterClusters.picture %>" alt="Image Description">
+            
+                <h5>Kéo và thả ảnh của bạn vào đây</h5>
+            
+                <p class="mb-2">or</p>
+            
+                <span class="btn btn-sm btn-primary">Chọn ảnh</span>
+              </div>
+            </div>
+            <!-- End Form Group -->          
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card -->
+      
+      </div>
+    </div>
+    <!-- End Row -->
+
+    <div class="position-fixed bottom-0 content-centered-x w-100 z-index-99 mb-3" style="max-width: 40rem;">
+      <!-- Card -->
+      <div class="card card-sm bg-dark border-dark mx-2">
+        <div class="card-body">
+          <div class="row justify-content-center justify-content-sm-between">
+            <div class="col">
+              <button type="button" class="btn btn-ghost-danger">Xóa</button>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-ghost-light mr-2">Nháp</button>
+              <button type="submit" class="btn btn-primary" onclick="addClick()">Lưu</button>
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+  </form>
+  </div>
+  <!-- End Content -->

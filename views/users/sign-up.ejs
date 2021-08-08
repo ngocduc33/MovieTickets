@@ -1,0 +1,155 @@
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/user/">
+                    <img style="border-radius: 20px;" src="/user/images/logo/logo-cinema.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/user/">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/user/movie-list">Phim</a>
+                </li>
+                <li>
+                    <a href="/user/cluster-list">Cụm rạp</a>
+                </li>
+                <li>
+                    <a href="/user/movie-ticket-plan">Lịch chiếu</a>
+                </li>
+                <li>
+                    <a href="/user/contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="#" class="active">Thành viên</a>
+                    <ul class="submenu">
+                        <% if(currentUser != null && currentUser.user_role == true) { %>
+                            <li>
+                                <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="/user/ticket-list">Vé của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/admin">Quản lý</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <a href="/user/movie-customer-profile" class="active">Tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/user/ticket-list">Vé của tôi</a>
+                                </li>
+                                
+                            <% } %>
+                    </ul>
+                </li>
+                <li class="header-button pr-0">
+                    <% if(currentUser) { %>
+                        <a><%=currentUser.user_name%></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                        <% } else { %>
+                                <a href="/user/sign-in">Đăng nhập</a>
+                            <% } %>
+
+                    
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->
+
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Preloader========== -->
+
+<!-- ==========Sign-In-Section========== -->
+<section class="account-section bg_img" data-background="/user/images/account/account-bg.jpg">
+    <div class="container">
+        <div class="padding-top padding-bottom">
+            <div class="account-area">
+                <div class="section-header-3">
+                    <h2 class="title">Đăng ký</h2>
+                </div>
+                <form action="/user/sign-up"  class="account-form"  method="POST" >
+                    <% if(message) {%>
+                        <div class="alert alert-success" role="alert">
+                            <center>
+                                <%= message  %>
+                            </center>
+                        </div>
+                        <% } %>
+                            <% if(messageErr) {%>
+                                <div class="alert alert-danger" role="alert">
+                                    <center>
+                                        <%= messageErr  %>
+                                    </center>
+                                </div>
+                                <% } %>
+                    <div class="form-group">
+                        <label for="username">Họ Tên</label>
+                        <input type="text" placeholder="Nhập vào họ tên" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenumber">Số điện thoại</label>
+                        <input type="text" placeholder="Nhập vào số điện thoại" id="phonenumber" name="phonenumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" placeholder="Nhập vào email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" placeholder="nhập vào mật khẩu" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repassword">Xác nhận mật khẩu</label>
+                        <input type="password" placeholder="Nhập lại mật khẩu" id="repassword" name="repassword" required>
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <input type="submit" value="Đăng ký">
+                    </div>
+                </form>
+                <div class="option">
+                    Bạn đã có tài khoản? <a href="/user/sign-in">Đăng nhập</a>
+                </div>
+                <div class="or"><span>Or</span></div>
+                <ul class="social-icons">
+                    <li>
+                        <a href="/user/sign-in-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/user/sign-in-google">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Sign-In-Section========== -->

@@ -1,0 +1,310 @@
+<div class="content container-fluid">
+  <div class="row align-items-center mb-3">
+    <div class="col-sm mb-2 mb-sm-0">
+      <h1 class="page-header-title">Thống Kê Doanh Thu Theo Cụm Rạp</h1>
+    </div>
+  </div>
+  <div class="card mb-3 mb-lg-5" data-select2-id="8">
+    <!-- Header -->
+    <div class="card-header" data-select2-id="7">
+      <div class="row align-items-center flex-grow-1">
+        <div class="col-sm-auto">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <h4 class="card-header-title">Chọn ngày</h4>
+            </div>
+            <div class="col-sm-auto">
+              <!-- Daterangepicker -->
+              <button
+                id="js-daterangepicker-predefined-theater-cluster"
+                class="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0"
+              >
+                <i class="tio-date-range"></i>
+                <span class="js-daterangepicker-predefined-preview-theater-cluster ml-1"></span>
+              </button>
+              <!-- End Daterangepicker -->
+            </div>
+              <div class="col-auto">
+                <h4 class="card-header-title">Chọn cụm rạp</h4>
+              </div>
+              <div class="col-auto">
+                <select
+                  name="select_cluster"
+                  class="js-select2-custom custom-select"
+                  size="1"
+                  style="opacity: 0"
+                  data-target-column-index="1"
+                  data-hs-select2-options='{
+                        "minimumResultsForSearch": "Infinity",
+                        "customClass": "custom-select custom-select-sm custom-select-borderless",
+                        "dropdownAutoWidth": true,
+                        "width": true
+                      }'
+                >
+                  <option value="all">Tất cả</option>
+                  <% if(lstTheaterCluster) {%>
+                    <% lstTheaterCluster.forEach(item => { %>
+                      <option value="<%=item.id %>"><%=item.name %></option>
+                    <% }) %>
+                  <% } else { %>
+                    <option value=""></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="col-auto">
+                <input type="hidden" id="date_start_cluster" name="date_start_cluster" value="">
+                <input type="hidden" id="date_end_cluster" name="date_end_cluster" value="">
+                <button type="submit" class="btn btn-primary" name="btn_statis_cluster" id="btn_statis_cluster">Thống kê</button>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-9 mb-5 mb-md-0">
+          <!-- Bar Chart -->
+          <div class="chartjs-custom mb-4">
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
+            </div>
+            <canvas
+              id="js-chart-cluster"
+              class="js-chart chartjs-render-monitor"
+              style="height: 288px; display: block; width: 856px"
+              data-hs-chartjs-options='{
+                "type": "line",
+                "data": {
+                    "labels": ["","", ""],
+                    "datasets": [{
+                      "data": [0,0,0],
+                      "label": "Số vé bán được",
+                      "fill": false,
+                      "borderColor": "#e7eaf3",
+                      "tension": "0.1"
+                    },
+                    {
+                      "data": [0,0,0],
+                      "label": "Doanh thu",
+                      "fill": "false",
+                      "borderColor": "rgb(75, 192, 192)",
+                      "tension": "0.1"
+                    }]
+                }
+              }'
+              width="1070"
+              height="360"
+            ></canvas>
+          </div>
+          <!-- End Bar Chart -->
+        </div>
+
+        <div class="col-md-3 column-divider-md">
+          <div class="row">
+            <div class="col-sm-6 col-md-12">
+              <!-- Stats -->
+              <div
+                class="d-flex justify-content-center flex-column"
+                style="min-height: 10.5rem"
+              >
+                <h6 class="card-subtitle" id="card-total-price">Doanh Thu</h6>
+                  <span id="totalPriceCluster" class="d-block display-4 text-dark mb-1 mr-3">0</span>
+              </div>
+              <!-- End Stats -->
+
+              <div class="d-sm-none">
+                <hr class="my-0" />
+              </div>
+
+              <div class="d-none d-md-block">
+                <hr class="my-0" />
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-12">
+              <!-- Stats -->
+              <div
+                class="d-flex justify-content-center flex-column"
+                style="min-height: 10.5rem"
+              >
+                <h6 class="card-subtitle" id="card-ticket">Số Vé Bán Được</h6>
+                    <span id="totalTicketCluster" class="d-block display-4 text-dark mb-1 mr-3">0</span>
+              </div>
+              <!-- End Stats -->
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Body -->
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <div class="col-sm mb-2 mb-sm-0">
+      <h1 class="page-header-title">Thống Kê Doanh Thu Theo Phim</h1>
+    </div>
+  </div>
+
+  <div class="card mb-3 mb-lg-5" data-select2-id="8">
+    <!-- Header -->
+    <div class="card-header" data-select2-id="7">
+      <div class="row align-items-center flex-grow-1">
+        <div class="col-sm mb-2 mb-sm-0">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <h4 class="card-header-title">Chọn ngày</h4>
+            </div>
+            <div class="col-sm-auto">
+              <!-- Daterangepicker -->
+              <button
+                id="js-daterangepicker-predefined-movies"
+                class="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0"
+              >
+                <i class="tio-date-range"></i>
+                <span class="js-daterangepicker-predefined-preview-movies ml-1"></span>
+              </button>
+              <!-- End Daterangepicker -->
+            </div>
+              <div class="col-auto">
+                <h4 class="card-header-title">Chọn Phim</h4>
+              </div>
+              <div class="col-auto">
+                <select
+                  name="select_movies"
+                  class="js-select2-custom custom-select"
+                  size="1"
+                  name="select-theater-clusters"
+                  style="opacity: 0"
+                  data-target-column-index="1"
+                  data-hs-select2-options='{
+                        "minimumResultsForSearch": "Infinity",
+                        "customClass": "custom-select custom-select-sm custom-select-borderless",
+                        "dropdownAutoWidth": true,
+                        "width": true
+                      }'
+                >
+                  <option value="all">Tất cả</option>
+                  <% if(lstMovies) {%>
+                    <% lstMovies.forEach(item => { %>
+                      <option value="<%=item.id %>"><%=item.name %></option>
+                    <% }) %>
+                  <% } else { %>
+                    <option value=""></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="col-auto">
+                <input type="hidden" id="date_start_movies" name="date_start_movies" value="">
+                <input type="hidden" id="date_end_movies" name="date_end_movies" value="">
+                <button type="submit" class="btn btn-primary" name="btn_statis_movies" id="btn_statis_movies">Thống kê</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-9 mb-5 mb-md-0">
+          <!-- Bar Chart -->
+          <div class="chartjs-custom mb-4">
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
+            </div>
+            <canvas
+              id="js-chart-movies"
+              class="js-chart chartjs-render-monitor"
+              style="height: 288px; display: block; width: 856px"
+              data-hs-chartjs-options='{
+                "type": "line",
+                "data": {
+                    "labels": ["","", ""],
+                    "datasets": [{
+                      "data": [0,0,0],
+                      "label": "Số vé bán được",
+                      "fill": false,
+                      "borderColor": "#e7eaf3",
+                      "tension": "0.1"
+                    },
+                    {
+                      "data": [0,0,0],
+                      "label": "Doanh thu",
+                      "fill": "false",
+                      "borderColor": "rgb(75, 192, 192)",
+                      "tension": "0.1"
+                    }]
+                }
+              }'
+              width="1070"
+              height="360"
+            ></canvas>
+          </div>
+          <!-- End Bar Chart -->
+        </div>
+
+        <div class="col-md-3 column-divider-md">
+          <div class="row">
+            <div class="col-sm-6 col-md-12">
+              <!-- Stats -->
+              <div
+                class="d-flex justify-content-center flex-column"
+                style="min-height: 10.5rem"
+              >
+                <h6 class="card-subtitle">Doanh Thu</h6>
+                <span name="totalPriceMovies" id="totalPriceMovies" class="d-block display-4 text-dark mb-1 mr-3"
+                  >0</span
+                >
+              </div>
+              <!-- End Stats -->
+
+              <div class="d-sm-none">
+                <hr class="my-0" />
+              </div>
+
+              <div class="d-none d-md-block">
+                <hr class="my-0" />
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-12">
+              <!-- Stats -->
+              <div
+                class="d-flex justify-content-center flex-column"
+                style="min-height: 10.5rem"
+              >
+                <h6 class="card-subtitle">Số Vé Bán Được</h6>
+                <span name="totalTicketMovies" id="totalTicketMovies" class="d-block display-4 text-dark mb-1 mr-3"
+                  >0</span
+                >
+              </div>
+              <!-- End Stats -->
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Body -->
+  </div>
+</div>

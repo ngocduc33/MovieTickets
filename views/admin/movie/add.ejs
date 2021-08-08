@@ -1,0 +1,154 @@
+<!-- Content -->
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-sm mb-2 mb-sm-0">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-no-gutter">
+              <li class="breadcrumb-item"><a class="breadcrumb-link" href="/admin/movie">Phim</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Thêm Phim</li>
+            </ol>
+          </nav>
+
+          <h1 class="page-header-title">Thêm Phim</h1>
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Page Header -->
+  <form method="POST">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Thông tin phim</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form Group -->
+            <div class="form-group">
+              <label for="productNameLabel" class="input-label">Tên<i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="name" id="name" aria-label="Shirt, t-shirts, etc.">
+            </div>
+            <!-- End Form Group -->
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Ngày Công Chiếu</label>
+                  <div id="projectDeadlineNewProjectFlatpickr" class="js-flatpickr flatpickr-custom input-group input-group-merge"
+                  data-hs-flatpickr-options='{
+                   "appendTo": "#projectDeadlineNewProjectFlatpickr",
+                   "dateFormat": "Y-m-d",
+                   "wrap": true
+                 }'>
+                    <div class="input-group-prepend" data-toggle>
+                      <div class="input-group-text">
+                        <i class="tio-date-range"></i>
+                      </div>
+                    </div>
+           
+                    <input type="text" class="flatpickr-custom-form-control form-control" id="releaseDate" name="releaseDate" placeholder="Chọn ngày" data-input>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Thời Lượng</label>
+                  <input type="number" class="form-control" name="duration" id="duration" placeholder="" aria-label="Shirt, t-shirts, etc.">
+
+                </div>
+              </div>
+
+              <!-- <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Trailer</label>
+                  <input type="text" class="form-control" name="trailer" id="trailer" placeholder="" aria-label="Shirt, t-shirts, etc.">
+                </div>
+              </div> -->
+
+              <!-- <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="SKULabel" class="input-label">Lượt xem</label>
+                  <input type="number" class="form-control" name="viewed" id="viewed" placeholder="" aria-label="Shirt, t-shirts, etc.">
+                </div>
+              </div> -->
+            </div>
+            <div class="form-group">
+              <label for="productNameLabel" class="input-label">Trailer<i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title=""></i></label>
+
+              <input type="text" class="form-control" name="trailer" id="trailer" aria-label="Shirt, t-shirts, etc.">
+            </div>
+
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card -->
+     
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h4 class="card-header-title">Poster Phim</h4>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form Group -->
+            <div id="attachFilesLabel" class="js-dropzone dropzone-custom custom-file-boxed">
+              <div class="dz-message custom-file-boxed-label">
+               
+                <input type="file" id="poster" name="poster" hidden >
+               
+                <img class="avatar avatar-xl avatar-4by3 mb-3" src="../assets/svg/illustrations/browse.svg">
+   
+                <h5>Kéo và thả ảnh của bạn vào đây</h5>
+            
+                <p class="mb-2">or</p>
+            
+                <span class="btn btn-sm btn-primary">Chọn ảnh</span>
+              </div>
+            </div>
+            <!-- End Form Group -->          
+          </div>
+          <!-- Body -->
+        </div>
+        <!-- End Card -->
+      
+      </div>
+    </div>
+    <!-- End Row -->
+
+    <div class="position-fixed bottom-0 content-centered-x w-100 z-index-99 mb-3" style="max-width: 40rem;">
+      <!-- Card -->
+      <div class="card card-sm bg-dark border-dark mx-2">
+        <div class="card-body">
+          <div class="row justify-content-center justify-content-sm-between">
+            <div class="col">
+              <button type="button" class="btn btn-ghost-danger">Xóa</button>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-ghost-light mr-2">Nháp</button>
+              <button type="submit" class="btn btn-primary" onclick="addClick()">Lưu</button>
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+  </form>
+
+</div>
+<!-- End Content -->
